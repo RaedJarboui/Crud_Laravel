@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Module;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\StoreModulesData;
 
 class ModuleController extends Controller
 {
@@ -36,14 +38,27 @@ class ModuleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        request()->validate([
-            'Nom_Module' => 'required',
-            'duree' => 'required',
-            'description' => 'required',
+    public function store(StoreModulesData $request) //3eme methode
 
-        ]);
+    //Request $request ->1/2 methode
+    {
+
+        // request()->validate([ ->1er methode
+        //     'Nom_Module' => 'required',
+        //     'duree' => 'required',
+        //     'description' => 'required',
+
+        // ]);
+
+        
+        // Validator::make($request->all(), [ ->2eme methode
+
+        //     'Nom_Module' => 'required',
+        //     'duree' => 'required',
+        //      'description' => 'required'
+            
+        //     ])->validate();
+        $validated = $request->validated();
 
         Module::create([
             'Nom_Module' => request('Nom_Module'),
@@ -54,6 +69,9 @@ class ModuleController extends Controller
 
         return redirect('/aff');
     }
+
+
+    
 
     /**
      * Display the specified resource.

@@ -11,5 +11,11 @@ class Module extends Model
     protected $fillable = [
         'Nom_Module', 'duree','description'
     ];
-
+    public function chapitres(){
+        return $this->hasMany(Chapitre::class);
+    }
+    public function enseignants()
+    {
+    return $this->belongsToMany(Enseignant::class);
+    }
 }
